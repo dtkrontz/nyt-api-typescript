@@ -6,7 +6,6 @@ import NYT from './Components/NYT-API-Fetch';
 function App() {
   return (
     <div className="App">
-      <p>Test</p>
       <NYT />
       {/* <header className="App-header">
         <img src={logo} className="App-logo" alt="logo" />
