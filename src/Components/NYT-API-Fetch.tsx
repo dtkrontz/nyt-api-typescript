@@ -56,7 +56,7 @@ export default class FetchNYT extends Component<Props, State> {
     }
 
     nextPage = async (e: any) => {
-        // console.log(typeof(e));
+        console.log(typeof(e));
         await this.setState({
             page: (this.state.page + 1)
         })
