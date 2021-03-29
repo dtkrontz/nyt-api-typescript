@@ -26,26 +26,36 @@ export default class FetchNYT extends Component<Props, State> {
         }
     }
 
-    updateInput = (e: any) => {
+    // format to handle multiple inputs
+    updateAllInput = (e: any) => {
         console.log(typeof(e));
-        this.setState(
-            {input: e.target.value}
-        )
+        const value = e.target.value;
+        this.setState({
+            ...this.state, // spreading existing state into a new state value and merging it. 
+            [e.target.name]: value,
+        })
     }
 
-    updateStart = (e: any) => {
-        console.log(typeof(e));
-        this.setState(
-            {start: e.target.value}
-        )
-    }
+    // updateInput = (e: any) => {
+    //     console.log(typeof(e));
+    //     this.setState(
+    //         {input: e.target.value}
+    //     )
+    // }
 
-    updateEnd = (e: any) => {
-        console.log(typeof(e));
-        this.setState(
-            {end: e.target.value}
-        )
-    }
+    // updateStart = (e: any) => {
+    //     console.log(typeof(e));
+    //     this.setState(
+    //         {start: e.target.value}
+    //     )
+    // }
+
+    // updateEnd = (e: any) => {
+    //     console.log(typeof(e));
+    //     this.setState(
+    //         {end: e.target.value}
+    //     )
+    // }
 
     updateResults = (e: any) => {
         console.log(typeof(e));
@@ -67,7 +77,7 @@ export default class FetchNYT extends Component<Props, State> {
 
     previousPage = async (e: any) => {
         console.log(typeof(e));
-        if (this.state.page > 1) {
+        if (this.state.page > 0) {
             await this.setState({
                 page: (this.state.page - 1)
             })
@@ -129,24 +139,27 @@ export default class FetchNYT extends Component<Props, State> {
                 {/* <form onSubmit={this.firstSearch}> */}
                     <p>
                         <label>Enter a search term: </label>
-                        <input onChange={((e) => this.updateInput(e))} type='text' value={this.state.input} />
+                        <input onChange={this.updateAllInput} placeholder='baseball, or cars etc.' type='text' name='input' value={this.state.input} />
                     </p>
                     <p>
                         <label>Enter a start date: </label>
-                        <input onChange={((e) => this.updateStart(e))} type="date" id="start-date"  pattern="[0-9]{8}" />
+                        <input onChange={this.updateAllInput} type="date" name='start' id="start-date"  pattern="[0-9]{8}" />
                     </p>
                     <p>
                         <label>Enter an end date: </label>
-                        <input onChange={((e) => this.updateEnd(e))} type="date" id="end-date" pattern="[0-9]{8}" />
+                        <input onChange={this.updateAllInput} type="date" name='end' id="end-date" pattern="[0-9]{8}" />
                     </p>
                 <button type='submit'>Search</button>
                 </form>
-                <button onClick={this.previousPage}>Previous Page</button>
-                <button onClick={this.nextPage}>Next Page</button>
+                {this.state.page === 0 ? <div></div> : <button onClick={this.previousPage}>Previous Page</button> }
+                {/* <button onClick={this.previousPage}>Previous Page</button> */}
+                {this.state.page >= 0 && this.state.results.length > 0 ? <button onClick={this.nextPage}>Next Page</button> : <div></div>}
+                {/* <button onClick={this.nextPage}>Next Page</button> */}
                 {/* {this.state.page > 1 ? <p>Page: {pageThing}</p> : <div></div> } */}
-                <p>Page: {this.state.page}</p>
+                {/* <p>Page: {this.state.page}</p> */}
                 <hr />
                 {/* {this.state.results} */}
+                {/* {this.state.results ? <Result result={this.state.results} : <h3>End of Results</h3> />} */}
                 <Result result={this.state.results} />
             </div>
         )
