@@ -22,7 +22,7 @@ export default class FetchNYT extends Component<Props, State> {
             start: '',
             end: '',
             results: [],
-            page: 1
+            page: 0
         }
     }
 
@@ -78,12 +78,12 @@ export default class FetchNYT extends Component<Props, State> {
         console.log(this.state.page);
     }
 
-    // firstSearch = async (e: any) => {
-    //     await this.setState ({
-    //         page: 2
-    //     })
-    //     this.fetchNYT(e);
-    // }
+    firstSearch = async (e: any) => {
+        await this.setState ({
+            page: 0
+        })
+        this.fetchNYT(e);
+    }
 
     fetchNYT = (e: any) => {
         console.log(typeof(e));
@@ -125,7 +125,7 @@ export default class FetchNYT extends Component<Props, State> {
         // let pageThing: number = this.state.page -1
         return(
             <div>
-                <form onSubmit={this.fetchNYT}>
+                <form onSubmit={this.firstSearch}>
                 {/* <form onSubmit={this.firstSearch}> */}
                     <p>
                         <label>Enter a search term: </label>
