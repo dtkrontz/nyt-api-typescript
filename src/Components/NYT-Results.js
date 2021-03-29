@@ -10,14 +10,15 @@ const Result = (props) => {
                 <div>
                     <h2><a href={result.web_url} target='blank' style={{textDecoration: 'none', color: 'black'}} >{result.headline.main}</a></h2>
                     {result.multimedia[0] ? <img src={`https://www.nytimes.com/${result.multimedia[0].url}`} alt='article img' /> : <p>No Image Found</p>}
-                    {result.keywords[0] ? <div><h4>Keywords:</h4>
+                    <h4>Keywords:</h4>
+                    {result.keywords[0] ?
                     <p>{result.keywords.map(words => {
                         return (
                             <div>
                                 <li>{words.value}</li>
                             </div>
                         )
-                    })}</p></div> : <h4>No Keywords Found</h4>}
+                    })}</p> : <h5>No Keywords Found</h5>}
                     
                 <hr />
                 </div>
