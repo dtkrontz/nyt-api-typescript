@@ -1,4 +1,4 @@
-import React, {Component} from 'react';
+import React, {ChangeEvent, ChangeEventHandler, Component, FormEvent, MouseEventHandler} from 'react';
 import Result from './NYT-Results';
 
 type Props = {
@@ -27,7 +27,7 @@ export default class FetchNYT extends Component<Props, State> {
     }
 
     // format to handle multiple inputs
-    updateAllInput = (e: any) => {
+    updateAllInput = (e: ChangeEvent<HTMLInputElement>) => {
         console.log(typeof(e));
         const value = e.target.value;
         this.setState({
@@ -57,15 +57,15 @@ export default class FetchNYT extends Component<Props, State> {
     //     )
     // }
 
-    updateResults = (e: any) => {
-        console.log(typeof(e));
+    updateResults = (e: any) => { // Cannot find the type
+        console.log(typeof(e)); // response does not exist on type object
         this.setState({
             results: e.response.docs
         })
         console.log(this.state.results);
     }
 
-    nextPage = async (e: any) => {
+    nextPage = async (e: object) => {
         console.log(typeof(e));
         await this.setState({
             page: (this.state.page + 1)
@@ -74,8 +74,8 @@ export default class FetchNYT extends Component<Props, State> {
 
         this.fetchNYT(e);
     }
-
-    previousPage = async (e: any) => {
+// MouseEvent<HTMLButtonElement, MouseEvent>
+    previousPage = async (e: object) => {
         console.log(typeof(e));
         if (this.state.page > 0) {
             await this.setState({
@@ -88,7 +88,7 @@ export default class FetchNYT extends Component<Props, State> {
         console.log(this.state.page);
     }
 
-    firstSearch = async (e: any) => {
+    firstSearch = async (e: FormEvent) => {
         await this.setState ({
             page: 0
         })
